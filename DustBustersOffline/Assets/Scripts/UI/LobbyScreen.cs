@@ -1,25 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LobbyScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject _playerPrefab = null;
+    List<LobbyPlayer> _players = new List<LobbyPlayer>();
 
-    private Transform _playerElementContainer;
-
-    private void Start()
+    public int GetColorId(int playerId) 
     {
-        _playerElementContainer = GameObject.Find("MainMenu").transform;
+        return _players[playerId].ColorId;
     }
 
-    public void AddPlayer() 
+    public void AddPlayer(LobbyPlayer player) 
     {
-        GameObject obj = Instantiate(_playerPrefab);
-        obj.transform.SetParent(_playerElementContainer);
+        _players.Add(player);
     }
 
-    public void StartGame() 
+    public void StartGame()
     {
+        DontDestroyOnLoad(this.gameObject);
         SceneManager.LoadScene("Game");
     }
 }
