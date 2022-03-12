@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36ca3612874bd24aac71724a0933c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _impactParticle: {fileID: 6549103167078252949, guid: 023ca4a6bc1ea534a99b2be5b189b582, type: 3}
   _movementspeed: 150
   _lifeTime: 5
+  _damage: 3
 --- !u!114 &5974906006987159390
 MonoBehaviour:
   m_ObjectHideFlags: 0

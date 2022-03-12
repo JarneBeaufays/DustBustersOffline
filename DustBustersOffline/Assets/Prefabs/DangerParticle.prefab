@@ -4833,6 +4833,8 @@ GameObject:
   - component: {fileID: 19900008}
   - component: {fileID: 8591081710897840463}
   - component: {fileID: 7905893024851333402}
+  - component: {fileID: -6779687998293613110}
+  - component: {fileID: 932166894249530438}
   m_Layer: 0
   m_Name: DangerParticle
   m_TagString: Untagged
@@ -9531,7 +9533,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 7905893024851333402}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -9551,3 +9554,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!65 &-6779687998293613110
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100008}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4904721, y: 1.5943388, z: 1.0676699}
+  m_Center: {x: 0.031558037, y: 0.062686086, z: -0.033834934}
+--- !u!114 &932166894249530438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69dbdcde72ae634f93eccbf41eadbda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _landingParticle: {fileID: 6923214832364708897, guid: 218510c0ce93e7849bb83834bdb34cf1, type: 3}
