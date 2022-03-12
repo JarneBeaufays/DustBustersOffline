@@ -28,7 +28,9 @@ public class Dust : MonoBehaviour
         }
         if (other.tag == "Huisstofmijt")
         {
-            other.GetComponent<Huisstofmijt>().ReachedDust();
+            Huisstofmijt mijt = other.GetComponent<Huisstofmijt>();
+            mijt.ReachedDust();
+            mijt.Munch();
             AudioSource audios = other.GetComponent<AudioSource>();
             audios.Play();
             Destroy(this.gameObject, audios.time);
