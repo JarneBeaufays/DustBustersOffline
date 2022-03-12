@@ -1608,8 +1608,6 @@ GameObject:
   - component: {fileID: 9166399908133952689}
   - component: {fileID: 6305812614352997175}
   - component: {fileID: 8974216202796242899}
-  - component: {fileID: 1879557675237421998}
-  - component: {fileID: 338346004578078401}
   m_Layer: 0
   m_Name: Roomba
   m_TagString: Untagged
@@ -1648,11 +1646,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03822291010ce404fa1fab59e6802fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _checkpointParent: {fileID: 2537128396148365617}
+  _checkpointParent: {fileID: 0}
   _particlesParent: {fileID: 2537128396148365617}
   _particleWhoosh: {fileID: 8567563802880947705}
   _vacuumSucker: {fileID: 3803249024457796134}
-  _drivingSpeed: 2
+  _drivingSpeed: 0.25
   _movementSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1677,7 +1675,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _rotationSpeed: 30
+  _rotationSpeed: 0.6
   _rotationSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -1702,9 +1700,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _cooldown: 10
-  _initialCooldown: 5
-  _checkpointRadius: 15
+  _cooldown: 7
+  _initialCooldown: 10
+  _checkpointRadius: 19
 --- !u!82 &8974216202796242899
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1801,45 +1799,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1879557675237421998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3663672263945849538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 338346004578078401}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &338346004578078401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3663672263945849538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 1
 --- !u!1 &3745673976832710097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4481,13 +4440,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3651823a41fca8344af5998405e31e9c, type: 3}
---- !u!4 &8567563802880947701 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 151910619444126484, guid: 3651823a41fca8344af5998405e31e9c, type: 3}
-  m_PrefabInstance: {fileID: 8430078819228260065}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8567563802880947705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 151910619444126488, guid: 3651823a41fca8344af5998405e31e9c, type: 3}
+  m_PrefabInstance: {fileID: 8430078819228260065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8567563802880947701 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 151910619444126484, guid: 3651823a41fca8344af5998405e31e9c, type: 3}
   m_PrefabInstance: {fileID: 8430078819228260065}
   m_PrefabAsset: {fileID: 0}

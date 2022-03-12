@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb74bdf1af32ea469d24fb9a1a7342d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _munchParticle: {fileID: 1041739970654768555, guid: d7b25cbf627cd3749b4a2f7a30843113, type: 3}
   min: {x: -10, y: -10}
   max: {x: 10, y: 10}
   _directionSearchFreq: 1
