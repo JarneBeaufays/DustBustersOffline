@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.AI;
 
 public class VacuumSucker : MonoBehaviour
@@ -11,8 +10,6 @@ public class VacuumSucker : MonoBehaviour
 
     private void Update()
     {
-        if (_rbToPull.Count == 0 || !PhotonNetwork.IsMasterClient) return;
-
         List<Rigidbody> rbToRemove = new List<Rigidbody>();
         foreach(Rigidbody rb in _rbToPull) 
         {

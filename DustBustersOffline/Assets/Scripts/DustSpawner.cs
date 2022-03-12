@@ -1,5 +1,4 @@
 using UnityEngine;
-using Photon.Pun;
 
 public class DustSpawner : MonoBehaviour
 {
@@ -13,9 +12,6 @@ public class DustSpawner : MonoBehaviour
 
     private void Update()
     {
-        // Check if this is the host and if there are two players active
-        if (!PhotonNetwork.IsMasterClient /*|| PhotonNetwork.CurrentRoom.PlayerCount != 4*/) return;
-
         // Update spawn rate
         _deltaSpawn += Time.deltaTime;
         if(_deltaSpawn >= _timeBetweenSpawned) 
@@ -29,6 +25,6 @@ public class DustSpawner : MonoBehaviour
     {
         // Position for the dust particle
         Vector3 dustLocation = new Vector3(Random.Range(_leftSpawnCorner.position.x, _rightSpawnCorner.position.x), 0f, Random.Range(_leftSpawnCorner.position.z, _rightSpawnCorner.position.z));
-        PhotonNetwork.Instantiate(_dustPrefab.name, dustLocation, Quaternion.identity);
+        Instantiate(_dustPrefab, dustLocation, Quaternion.identity);
     }
 }

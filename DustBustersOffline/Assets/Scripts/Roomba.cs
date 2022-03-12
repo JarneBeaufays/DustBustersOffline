@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using System.Collections;
 
 public class Roomba : MonoBehaviour
@@ -39,8 +38,6 @@ public class Roomba : MonoBehaviour
 
     private void Start()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
         _audioSource = GetComponent<AudioSource>();
 
         foreach (Transform checkpoint in _checkpointParent.GetComponentsInChildren<Transform>())
@@ -68,8 +65,6 @@ public class Roomba : MonoBehaviour
 
     private void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
         // Decrease timer
         _deltaStationery -= Time.deltaTime;
 

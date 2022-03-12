@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.InputSystem;
 using TMPro;
 
@@ -14,7 +13,7 @@ public class Player : MonoBehaviour
     [Header("-------Mesh Settings-------")]
     [SerializeField] private GameObject[] _meshStates;
     [SerializeField] private int[] _meshStateScores;
-    [SerializeField] private float _meshGrowth = 0.1f;
+    [SerializeField] private float _meshGrowth = 0.6f;
     [SerializeField] private float _meshGrowthSpeed = 1f;
     [SerializeField] private int _scoreToStopGrowing = 15;
 
@@ -23,6 +22,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _projectileSocket = null;
 
     [Header("-------Other Settings-------")]
+    [SerializeField] private int _maxSCore = 10;
+    [SerializeField] private int _playerId = 0;
     [SerializeField] private GameObject _electricParticleParent = null;
     [SerializeField] private Material _carpetMaterial = null;
 
@@ -34,12 +35,10 @@ public class Player : MonoBehaviour
     private CharacterController _characterController = null;
 
     private Animator[] _animator;
-    private PhotonView _view;
 
     private Vector3 _faceDirection = Vector3.zero;
     private int _score = 0;
     private int _totalScore = 0;
-    private int _playerId = 0;
     private int _currentMeshStateIndex = 0;
     private bool _isCharged = false;
 
@@ -49,12 +48,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _animator = GetComponentsInChildren<Animator>();
-        _view = GetComponent<PhotonView>();
         _inputActions = new PlayerInputActions();
         _inputActions.Player.Fire.performed += Interact;
         _inputActions.Player.Enable();
         _characterController = GetComponent<CharacterController>();
-        _playerId = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         _faceDirection = transform.forward;
 
         //// Add this gameobject as data to the photon player
@@ -80,17 +77,14 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        if (_view.IsMine)
-        {
-            _totalScoreText.text = _totalScore.ToString();
-            _currentScoreText.text = _score.ToString();
+    {      
+        _totalScoreText.text = _totalScore.ToString();
+        _currentScoreText.text = _score.ToString();
 
-            HandleMovement();
-            UpdateMaterial();
+        HandleMovement();
+        UpdateMaterial();
 
-            _animator[_currentMeshStateIndex].SetBool("isRunning", _inputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero);
-        }
+        _animator[_currentMeshStateIndex].SetBool("isRunning", _inputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero);     
     }
 
     void HandleMovement()
@@ -112,7 +106,7 @@ public class Player : MonoBehaviour
 
     private void Interact(InputAction.CallbackContext context)
     {
-        if (_view.IsMine && _isCharged)
+        if (_isCharged)
         {
             RaycastHit hitInfo;
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -121,22 +115,24 @@ public class Player : MonoBehaviour
             Vector3 mousePosOnBoard = hitInfo.point;
             mousePosOnBoard.y = _projectileSocket.transform.position.y;
 
-            GameObject obj = PhotonNetwork.Instantiate(_lightningProjectilePrefab.name, _projectileSocket.position, Quaternion.LookRotation(mousePosOnBoard - _projectileSocket.transform.position));
+            GameObject obj = Instantiate(_lightningProjectilePrefab, _projectileSocket.position, Quaternion.LookRotation(mousePosOnBoard - _projectileSocket.transform.position));
             obj.GetComponent<LightningProjectile>().Shooter = this.gameObject;
 
             _isCharged = false;
             foreach (ParticleSystem ps in _particles) ps.Stop();
-        }
+        }     
     }
 
     public void DustPickedUp(int amount)
-    {      
-        _score += amount;
+    {
+        if (_score >= _maxSCore)
+            return;
 
-        bool changeSprite = false;
+        int amountAdded = _score + amount > _maxSCore ? _maxSCore - _score : amount;
+        _score = Mathf.Min(_score + amount, _maxSCore);
+
         while (_currentMeshStateIndex != _meshStateScores.Length - 1 && _meshStateScores[_currentMeshStateIndex + 1] <= _score)
         {
-            changeSprite = true;
             _meshStates[_currentMeshStateIndex].SetActive(false);
             Vector3 scale = _meshStates[_currentMeshStateIndex].transform.localScale;
             ++_currentMeshStateIndex;
@@ -144,10 +140,7 @@ public class Player : MonoBehaviour
             _meshStates[_currentMeshStateIndex].transform.localScale = scale;
         }
 
-        if (!changeSprite)
-        {
-            _meshStates[_currentMeshStateIndex].transform.localScale *= (1 + _meshGrowth * amount);
-        }
+        _meshStates[_currentMeshStateIndex].transform.localScale += new Vector3(_meshGrowth, _meshGrowth, _meshGrowth) * amountAdded;   
     }
 
     public void TakeDustOff(int amount)
@@ -155,26 +148,19 @@ public class Player : MonoBehaviour
         if (_score <= 0)
             return;
 
+        int amountSubtracted = _score < amount ? _score : amount;
         _score = Mathf.Max(0, _score - amount);
-
-        bool changeSprite = false;
 
         while (_currentMeshStateIndex != 0 && _meshStateScores[_currentMeshStateIndex] > _score)
         {
-            changeSprite = true;
-
             _meshStates[_currentMeshStateIndex].SetActive(false);
             Vector3 scale = _meshStates[_currentMeshStateIndex].transform.localScale;
             --_currentMeshStateIndex;
             _meshStates[_currentMeshStateIndex].SetActive(true);
             _meshStates[_currentMeshStateIndex].transform.localScale = scale;
         }
-
-        if (!changeSprite)
-        {
-            for (int i=0; i < amount; i++)
-                _meshStates[_currentMeshStateIndex].transform.localScale *= (1 - _meshGrowth);
-        }
+   
+        _meshStates[_currentMeshStateIndex].transform.localScale -= new Vector3(_meshGrowth, _meshGrowth, _meshGrowth) * amountSubtracted;      
     }
 
     public void Vacuum() 

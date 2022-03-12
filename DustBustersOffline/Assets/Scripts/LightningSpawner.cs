@@ -1,5 +1,4 @@
 using UnityEngine;
-using Photon.Pun;
 
 public class LightningSpawner : MonoBehaviour
 {
@@ -22,8 +21,6 @@ public class LightningSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
         _deltaSpawn += Time.deltaTime;
         if (_deltaSpawn >= _actualSpawnTime) 
         {
@@ -38,6 +35,6 @@ public class LightningSpawner : MonoBehaviour
 
         float x = Random.Range(_leftCorner.position.x, _rightCorner.position.x);
         float z = Random.Range(_rightCorner.position.z, _leftCorner.position.z);
-        PhotonNetwork.Instantiate(_prefabToSpawn.name, new Vector3(x, transform.position.y, z), Quaternion.identity);
+        Instantiate(_prefabToSpawn, new Vector3(x, transform.position.y, z), Quaternion.identity);
     }
 }
