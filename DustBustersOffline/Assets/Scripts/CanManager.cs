@@ -47,7 +47,7 @@ public class CanManager : MonoBehaviour
         spawnPos.y = _leftTopSpawnCorner.position.y;
 
         //Spawn
-        GameObject can = PhotonNetwork.Instantiate(_canPrefab.name, spawnPos, Quaternion.identity);
+        GameObject can = Instantiate(_canPrefab, spawnPos, Quaternion.identity);
 
         //Direction
         Vector3 dirToMiddle = new Vector3(-spawnPos.x, spawnPos.y, -spawnPos.z);
@@ -70,7 +70,7 @@ public class CanManager : MonoBehaviour
             }
         }
 
-        GameObject particle = PhotonNetwork.Instantiate(_dangerParticle.name, _landingPos, Quaternion.Euler(90, 0, 0));
+        GameObject particle = Instantiate(_dangerParticle, _landingPos, Quaternion.Euler(90, 0, 0));
         Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
     }
 }

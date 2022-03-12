@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using TMPro;
 
 public class PlayerName : MonoBehaviour
@@ -10,36 +9,22 @@ public class PlayerName : MonoBehaviour
     GameObject _listingElement;
     List<TextMeshProUGUI> _textScores = new List<TextMeshProUGUI>();
     TextMeshPro _playerName = null;
-    PhotonView _view = null;
 
     private void Start()
     {
         _playerName = GetComponentInChildren<TextMeshPro>();
-        _view = GetComponent<PhotonView>();
         _listingElement = GameObject.Find("ScoreListing");
-
-        if (_view.IsMine)
-        {
-            _playerName.text = PhotonNetwork.NickName;
-        }
-        else
-        {
-            _playerName.text = _view.Owner.NickName;
-        }
+        _playerName.text = "Placeholder";
     }
 
     private void Update()
-    {
-        if (_view.IsMine) 
-        {
-            UpdateScoreTexts();
-            UpdateScores();
-        }
+    {       
+        UpdateScoreTexts();
+        UpdateScores();      
     }
-
     private void UpdateScoreTexts()
     {
-        int playerCount = PhotonNetwork.PlayerList.Length - 1;
+        int playerCount = 4; // Fix this!
 
         while (_textScores.Count < playerCount)
         {

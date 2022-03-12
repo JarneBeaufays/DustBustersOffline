@@ -1,4 +1,3 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +19,6 @@ public class HuisstofmijtManager : MonoBehaviour
     public void SpawnMijt()
     {
         Vector3 dustLocation = _spawnPoints[Random.Range(0, _spawnPoints.Length)].position;
-        PhotonNetwork.Instantiate(_huisstofmijtPrefab.name, dustLocation, Quaternion.identity);
+        Instantiate(_huisstofmijtPrefab, dustLocation, Quaternion.identity);
     }
 }
