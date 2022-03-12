@@ -63,6 +63,9 @@ GameObject:
   - component: {fileID: 2696296591011360466}
   - component: {fileID: 2696296591011360464}
   - component: {fileID: 2696296591011360465}
+  - component: {fileID: 7963944388029170790}
+  - component: {fileID: 7301518469417556405}
+  - component: {fileID: 11113707573930203}
   m_Layer: 0
   m_Name: PlayerElement
   m_TagString: Untagged
@@ -129,6 +132,93 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7963944388029170790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696296591011360467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec259f566adf259489af3d5d12503072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 6138866562151635878}
+--- !u!114 &7301518469417556405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696296591011360467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da3c4f23f3028b48af17935866b3f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11113707573930203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2696296591011360467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2b5d1cd86b1453a40aa9d4c88fa8e56a, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7301518469417556405}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: SwapCharLeft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6c3ea2c7-5a58-4f42-b8fc-2494ed19bf00
+    m_ActionName: LobbyPlayer/SwapCharLeft
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7301518469417556405}
+        m_TargetAssemblyTypeName: LobbyPlayer, Assembly-CSharp
+        m_MethodName: SwapCharRight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dde2e4ee-3eea-4645-add6-4d555b1a97d6
+    m_ActionName: LobbyPlayer/SwapCharRight
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: LobbyPlayer
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &2931890273224383346
 GameObject:
   m_ObjectHideFlags: 0

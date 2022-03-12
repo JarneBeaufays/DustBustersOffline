@@ -1,0 +1,54 @@
+{
+    "name": "LobbyPlayer",
+    "maps": [
+        {
+            "name": "LobbyPlayer",
+            "id": "64cedb5f-808f-40b5-ae90-fc1861c348f2",
+            "actions": [
+                {
+                    "name": "SwapCharLeft",
+                    "type": "Button",
+                    "id": "6c3ea2c7-5a58-4f42-b8fc-2494ed19bf00",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwapCharRight",
+                    "type": "Button",
+                    "id": "dde2e4ee-3eea-4645-add6-4d555b1a97d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "caaf9c8c-ed5a-4d18-824a-269ad2e235f0",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapCharLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "897477be-8512-4ae1-9fbb-5e7c9009606f",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwapCharRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
