@@ -16,8 +16,6 @@ public class LobbyPlayer : MonoBehaviour
     private void Start()
     {
         _bodySprite.color = _playerColors._colors[_curColorId];
-
-        GameObject.Find("LobbyManager").GetComponent<LobbyScreen>().AddPlayer(this);
     }
 
     public void SwapCharLeft(InputAction.CallbackContext context) 

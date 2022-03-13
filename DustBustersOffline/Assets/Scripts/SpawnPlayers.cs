@@ -10,7 +10,7 @@ public class SpawnPlayers : MonoBehaviour
 
     private void Start()
     {
-        Vector3 position = new Vector3(Random.Range(-x, x), y, Random.Range(-z, z));
-        Instantiate(_playerPrefab, position, Quaternion.identity);
+        //Vector3 position = new Vector3(Random.Range(-x, x), y, Random.Range(-z, z));
+        //Instantiate(_playerPrefab, position, Quaternion.identity);
     }
 }
