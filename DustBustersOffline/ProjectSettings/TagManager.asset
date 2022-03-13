@@ -7,6 +7,8 @@ TagManager:
   - Dust
   - Huisstofmijt
   - Can
+  - FxTemporaire
+  - LightningBolt
   layers:
   - Default
   - TransparentFX
