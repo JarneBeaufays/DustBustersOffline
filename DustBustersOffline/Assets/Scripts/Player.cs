@@ -26,17 +26,19 @@ public class Player : MonoBehaviour
     [SerializeField] private int _playerId = 0;
     [SerializeField] private GameObject _electricParticleParent = null;
     [SerializeField] private Material _carpetMaterial = null;
+    [SerializeField] private PlayerColors _playerColors = null;
+    [SerializeField] private List<SpriteRenderer> _bodySprites = new List<SpriteRenderer>();
 
-    private TextMeshProUGUI _totalScoreText = null;
-    private TextMeshProUGUI _currentScoreText = null;
+    //private TextMeshProUGUI _totalScoreText = null;
+    //private TextMeshProUGUI _currentScoreText = null;
     private List<ParticleSystem> _particles = new List<ParticleSystem>();
-    
-    private PlayerInputActions _inputActions = null;
+
     private CharacterController _characterController = null;
 
     private Animator[] _animator;
 
     private Vector3 _faceDirection = Vector3.zero;
+    private Vector2 _input = Vector2.zero;
     private int _score = 0;
     private int _totalScore = 0;
     private int _currentMeshStateIndex = 0;
@@ -48,48 +50,49 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _animator = GetComponentsInChildren<Animator>();
-        _inputActions = new PlayerInputActions();
-        _inputActions.Player.Fire.performed += Interact;
-        _inputActions.Player.Enable();
         _characterController = GetComponent<CharacterController>();
         _faceDirection = transform.forward;
-
-        //// Add this gameobject as data to the photon player
-        //foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerList) 
-        //{
-        //    if(player.ActorNumber == _playerId + 1)
-        //    {
-        //        player.TagObject = gameObject;
-        //    }
-        //}
 
         _particles.Add(_electricParticleParent.GetComponent<ParticleSystem>());
         foreach (ParticleSystem ps in _electricParticleParent.GetComponentsInChildren<ParticleSystem>()) _particles.Add(ps);
 
-        _totalScoreText = GameObject.Find("TotalScoreValue").GetComponent<TextMeshProUGUI>();
-        _currentScoreText = GameObject.Find("CurrentScoreValue").GetComponent<TextMeshProUGUI>();
+        //_totalScoreText = GameObject.Find("TotalScoreValue").GetComponent<TextMeshProUGUI>();
+        //_currentScoreText = GameObject.Find("CurrentScoreValue").GetComponent<TextMeshProUGUI>();
 
         _meshStates[0].SetActive(true);
-        for (int i=1; i < _meshStates.Length; i++)
+        for (int i = 1; i < _meshStates.Length; i++)
         {
             _meshStates[i].SetActive(false);
         }
     }
 
     void FixedUpdate()
-    {      
-        _totalScoreText.text = _totalScore.ToString();
-        _currentScoreText.text = _score.ToString();
+    {
+        //_totalScoreText.text = _totalScore.ToString();
+        //_currentScoreText.text = _score.ToString();
 
         HandleMovement();
         UpdateMaterial();
 
-        _animator[_currentMeshStateIndex].SetBool("isRunning", _inputActions.Player.Move.ReadValue<Vector2>() != Vector2.zero);     
+        _animator[_currentMeshStateIndex].SetBool("isRunning", _input != Vector2.zero);
+    }
+    
+    public void UpdateColors(int colorId) 
+    {
+        foreach (SpriteRenderer sprite in _bodySprites)
+            sprite.color = _playerColors._colors[colorId];
+    }
+
+    public void Movement(InputAction.CallbackContext context) 
+    {
+        if (!context.performed) return;
+
+        _input = context.ReadValue<Vector2>();
     }
 
     void HandleMovement()
     {
-        Vector2 movementInput = _inputActions.Player.Move.ReadValue<Vector2>();
+        Vector2 movementInput = _input;
         if (movementInput != Vector2.zero)
             _faceDirection = new Vector3(movementInput.x, 0f, movementInput.y);
 
@@ -104,7 +107,7 @@ public class Player : MonoBehaviour
         _carpetMaterial.SetVector("_PlayerPosition" + _playerId, _characterController.transform.position);
     }
 
-    private void Interact(InputAction.CallbackContext context)
+    public void Interact(InputAction.CallbackContext context)
     {
         if (_isCharged)
         {
