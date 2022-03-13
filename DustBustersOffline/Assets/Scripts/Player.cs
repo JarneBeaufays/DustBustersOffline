@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Material _carpetMaterial = null;
     [SerializeField] private PlayerColors _playerColors = null;
     [SerializeField] private List<SpriteRenderer> _bodySprites = new List<SpriteRenderer>();
+    [SerializeField] private GameObject _uiElement = null;
 
     //private TextMeshProUGUI _totalScoreText = null;
     //private TextMeshProUGUI _currentScoreText = null;
@@ -37,12 +38,17 @@ public class Player : MonoBehaviour
 
     private Animator[] _animator;
 
+    private TextMeshProUGUI _curScore;
+    private TextMeshProUGUI _totScore;
+
     private Vector3 _faceDirection = Vector3.zero;
     private Vector2 _input = Vector2.zero;
     private int _score = 0;
     private int _totalScore = 0;
     private int _currentMeshStateIndex = 0;
+    private int _colorId = 0;
     private bool _isCharged = false;
+    private bool _firstFrame = true;
 
     public int TotalScore { get { return _totalScore; } }
     public bool IsBeingVacuumed { get; set; }
@@ -56,9 +62,6 @@ public class Player : MonoBehaviour
         _particles.Add(_electricParticleParent.GetComponent<ParticleSystem>());
         foreach (ParticleSystem ps in _electricParticleParent.GetComponentsInChildren<ParticleSystem>()) _particles.Add(ps);
 
-        //_totalScoreText = GameObject.Find("TotalScoreValue").GetComponent<TextMeshProUGUI>();
-        //_currentScoreText = GameObject.Find("CurrentScoreValue").GetComponent<TextMeshProUGUI>();
-
         _meshStates[0].SetActive(true);
         for (int i = 1; i < _meshStates.Length; i++)
         {
@@ -66,11 +69,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (_firstFrame) 
+        {
+            GameObject ui = Instantiate(_uiElement);
+            GameObject scoreListing = GameObject.Find("ScoreListing");
+            ui.transform.SetParent(scoreListing.transform);
+            TextMeshProUGUI[] texts = ui.GetComponentsInChildren<TextMeshProUGUI>();
+
+            _totScore = texts[1];
+            _totScore.color = _playerColors._colors[_colorId];
+            _curScore = texts[3];
+            _curScore.color = _playerColors._colors[_colorId];
+
+            _firstFrame = false;
+            return;
+        }
+
+        _totScore.text = _totalScore.ToString();
+        _curScore.text = _score.ToString();
+    }
+
     void FixedUpdate()
     {
-        //_totalScoreText.text = _totalScore.ToString();
-        //_currentScoreText.text = _score.ToString();
-
         HandleMovement();
         UpdateMaterial();
 
@@ -81,6 +103,8 @@ public class Player : MonoBehaviour
     {
         foreach (SpriteRenderer sprite in _bodySprites)
             sprite.color = _playerColors._colors[colorId];
+
+        _colorId = colorId;
     }
 
     public void Movement(InputAction.CallbackContext context) 
