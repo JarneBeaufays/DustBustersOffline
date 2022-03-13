@@ -26,10 +26,11 @@ public class LightningProjectile : MonoBehaviour
         {
             if (other.gameObject == _shooter) return;
 
-            Instantiate(_impactParticle, this.transform.position, Quaternion.identity);
             Player p = other.gameObject.GetComponent<Player>();
             p.TakeDustOff(_damage);
             p.GetComponent<PlayerStun>().Stun();
+
+            Instantiate(_impactParticle, this.transform.position, Quaternion.identity);
         }
         else if (other.GetComponent<Huisstofmijt>()) 
         {

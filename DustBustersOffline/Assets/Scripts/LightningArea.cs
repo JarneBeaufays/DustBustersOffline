@@ -10,8 +10,7 @@ public class LightningArea : MonoBehaviour
 
         other.GetComponent<Player>().Charge();
         GetComponent<AudioSource>().Play();
-        GetComponentInChildren<ParticleSystem>().Stop();
 
-        Destroy(this.gameObject, 2.5f);
+        Destroy(this.gameObject);
     }
 }
