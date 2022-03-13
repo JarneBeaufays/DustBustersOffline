@@ -6,6 +6,8 @@ public class Dust : MonoBehaviour
 {
     [SerializeField] List<Sprite> _sprites = new List<Sprite>();
 
+    bool _pickedUp = false;
+
     private void Start()
     {
         if(_sprites.Count == 0) 
@@ -20,15 +22,31 @@ public class Dust : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_pickedUp) return;
+
         if (other.tag == "Player")
         {
+            _pickedUp = true;
+
             Player p = other.gameObject.GetComponent<Player>();
             p.DustPickedUp(1);
-            Destroy(this.gameObject);
+
+            ParticleSystem ps = this.GetComponentInChildren<ParticleSystem>();
+            ps.Play(true);
+
+            GetComponent<AudioSource>().Play();
+
+            this.GetComponentInChildren<SpriteRenderer>().enabled = false;
+
+            Destroy(this.gameObject, ps.main.duration);
         }
         if (other.tag == "Huisstofmijt")
         {
-            other.GetComponent<Huisstofmijt>().ReachedDust();
+            _pickedUp = true;
+
+            Huisstofmijt mijt = other.GetComponent<Huisstofmijt>();
+            mijt.ReachedDust();
+            mijt.Munch();
             AudioSource audios = other.GetComponent<AudioSource>();
             audios.Play();
             Destroy(this.gameObject, audios.time);

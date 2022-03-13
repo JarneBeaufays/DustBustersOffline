@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class Huisstofmijt : MonoBehaviour
 {
+    [SerializeField] private GameObject _munchParticle = null;
     [SerializeField] private Vector2 min = Vector2.one * -10;
     [SerializeField] private Vector2 max = Vector2.one * 10;
     [SerializeField] private float _directionSearchFreq = 5f;
@@ -73,10 +74,16 @@ public class Huisstofmijt : MonoBehaviour
         _dustToMoveTo = null;
     }
 
+    public void Munch()
+    {
+        GameObject particle = Instantiate(_munchParticle, this.transform.position + new Vector3(0, 1.25f, 0), Quaternion.identity);
+        Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
+            Munch();
             Player p = other.gameObject.GetComponent<Player>();
             p.TakeDustOff(3);
         }

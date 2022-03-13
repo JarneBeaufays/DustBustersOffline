@@ -10,6 +10,8 @@ public class Can : MonoBehaviour
     private Rigidbody _rb = null;
     public bool _beingSucked = false;
 
+    private float _timer = 0;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -17,7 +19,9 @@ public class Can : MonoBehaviour
 
     private void Update()
     {
-        if (!_beingSucked && _rb.velocity.sqrMagnitude <= 0.5f)
+        _timer += Time.deltaTime;
+
+        if (_timer > 1f &&!_beingSucked && _rb.velocity.sqrMagnitude <= 0.5f)
         {
             _rb.drag = 10000;
             _rb.angularDrag = 1000;
