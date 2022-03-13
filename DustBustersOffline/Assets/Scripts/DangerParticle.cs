@@ -13,7 +13,7 @@ public class DangerParticle : MonoBehaviour
             Destroy(this.gameObject);
             GameObject particle = Instantiate(_landingParticle, this.transform.position, Quaternion.Euler(90, 0, 0));
             particle.transform.localScale *= 2;
-            Destroy(_landingParticle, particle.GetComponent<ParticleSystem>().main.duration);
+            Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
         }
     }
 }

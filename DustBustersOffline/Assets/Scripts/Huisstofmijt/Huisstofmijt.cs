@@ -83,6 +83,7 @@ public class Huisstofmijt : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Munch();
             Player p = other.gameObject.GetComponent<Player>();
             p.TakeDustOff(3);
         }
