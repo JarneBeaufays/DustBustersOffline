@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EndGame : MonoBehaviour
 {
-    public void WinnerWinnerChickenDinner()
+    [SerializeField] TextMeshProUGUI _uiText = null;
+
+    public void WinnerWinnerChickenDinner(int playerid, Color playerColor)
     {
         // Disable players
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -31,5 +34,21 @@ public class EndGame : MonoBehaviour
         //Disable LightningSpawner
         LightningSpawner lightningSpawner = GameObject.FindObjectOfType<LightningSpawner>();
         lightningSpawner.enabled = false;
+
+        //Play Sound
+        GetComponent<AudioSource>().Play();
+
+        //Spawn Particles
+        ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem ps in pss)
+        {
+            ParticleSystem.MainModule m = ps.main;
+            m.startColor = playerColor;
+            ps.Play();
+        }
+
+        //UI Text
+        _uiText.text = "Player " + playerid.ToString() + " won!";
+        _uiText.enabled = true;
     }
 }

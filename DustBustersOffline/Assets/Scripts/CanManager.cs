@@ -69,6 +69,6 @@ public class CanManager : MonoBehaviour
             }
         }
 
-        GameObject particle = Instantiate(_dangerParticle, _landingPos, Quaternion.Euler(90, 0, 0));
+        Instantiate(_dangerParticle, _landingPos, Quaternion.Euler(90, 0, 0));
     }
 }
