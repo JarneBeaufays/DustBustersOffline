@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
 
     private Vector3 _faceDirection = Vector3.zero;
     private Vector2 _input = Vector2.zero;
+    private Vector2 _lookInput = Vector2.zero;
     private int _score = 0;
     private int _totalScore = 0;
     private int _currentMeshStateIndex = 0;
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
     private bool _isCharged = false;
     private bool _firstFrame = true;
 
+    public int PlayerId { get { return _playerId; } set { _playerId = value; } }
     public int TotalScore { get { return _totalScore; } }
     public bool IsBeingVacuumed { get; set; }
 
@@ -115,6 +117,13 @@ public class Player : MonoBehaviour
         _input = context.ReadValue<Vector2>();
     }
 
+    public void Look(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        _lookInput = context.ReadValue<Vector2>();
+    }
+
     void HandleMovement()
     {
         Vector2 movementInput = _input;
@@ -136,15 +145,28 @@ public class Player : MonoBehaviour
     {
         if (_isCharged)
         {
-            RaycastHit hitInfo;
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Physics.Raycast(ray, out hitInfo);
+            if(_lookInput == Vector2.zero) 
+            {
+                RaycastHit hitInfo;
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                Physics.Raycast(ray, out hitInfo);
 
-            Vector3 mousePosOnBoard = hitInfo.point;
-            mousePosOnBoard.y = _projectileSocket.transform.position.y;
+                Vector3 mousePosOnBoard = hitInfo.point;
+                mousePosOnBoard.y = _projectileSocket.transform.position.y;
 
-            GameObject obj = Instantiate(_lightningProjectilePrefab, _projectileSocket.position, Quaternion.LookRotation(mousePosOnBoard - _projectileSocket.transform.position));
-            obj.GetComponent<LightningProjectile>().Shooter = this.gameObject;
+                GameObject obj = Instantiate(_lightningProjectilePrefab, _projectileSocket.position, Quaternion.LookRotation(mousePosOnBoard - _projectileSocket.transform.position));
+                obj.GetComponent<LightningProjectile>().Shooter = this.gameObject;
+            }
+            else 
+            {
+                Vector3 target = new Vector3();
+                target.x = _projectileSocket.position.x + _lookInput.x;
+                target.y = _projectileSocket.position.y;
+                target.z = _projectileSocket.position.z + _lookInput.y;
+
+                GameObject obj = Instantiate(_lightningProjectilePrefab, _projectileSocket.position, Quaternion.LookRotation(target - _projectileSocket.transform.position));
+                obj.GetComponent<LightningProjectile>().Shooter = this.gameObject;
+            }
 
             _isCharged = false;
             foreach (ParticleSystem ps in _particles) ps.Stop();
