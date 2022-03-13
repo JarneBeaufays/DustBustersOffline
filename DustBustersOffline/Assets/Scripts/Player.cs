@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     private bool _isCharged = false;
     private bool _firstFrame = true;
 
+    public int PlayerId { get { return _playerId; } set { _playerId = value; } }
     public int TotalScore { get { return _totalScore; } }
     public bool IsBeingVacuumed { get; set; }
 

@@ -7,6 +7,8 @@ public class PlayerElement : MonoBehaviour
 
     private int _id;
 
+    public int ID { get { return _id; } }
+
     private void Start()
     {
         // Connect to correct parent object
