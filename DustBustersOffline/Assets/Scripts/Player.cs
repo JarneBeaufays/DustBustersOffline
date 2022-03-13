@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerColors _playerColors = null;
     [SerializeField] private List<SpriteRenderer> _bodySprites = new List<SpriteRenderer>();
     [SerializeField] private GameObject _uiElement = null;
+    [SerializeField] private int _winScore = 40;
 
     //private TextMeshProUGUI _totalScoreText = null;
     //private TextMeshProUGUI _currentScoreText = null;
@@ -167,7 +168,7 @@ public class Player : MonoBehaviour
             _meshStates[_currentMeshStateIndex].transform.localScale = scale;
         }
 
-        _meshStates[_currentMeshStateIndex].transform.localScale += new Vector3(_meshGrowth, _meshGrowth, _meshGrowth) * amountAdded;   
+        _meshStates[_currentMeshStateIndex].transform.localScale += new Vector3(_meshGrowth, _meshGrowth, _meshGrowth) * amountAdded;  
     }
 
     public void TakeDustOff(int amount)
@@ -204,6 +205,9 @@ public class Player : MonoBehaviour
         if (rb) Destroy(rb);
 
         _characterController.enabled = true;
+
+        if (_totalScore >= _winScore)
+            GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner();
     }
 
     public void Charge() 
