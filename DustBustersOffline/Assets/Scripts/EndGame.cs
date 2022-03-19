@@ -9,6 +9,8 @@ public class EndGame : MonoBehaviour
 
     public void WinnerWinnerChickenDinner(int playerid, Color playerColor)
     {
+        _uiText.gameObject.SetActive(true);
+
         // Disable players
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)

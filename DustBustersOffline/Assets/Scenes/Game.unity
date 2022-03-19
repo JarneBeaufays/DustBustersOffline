@@ -11105,6 +11105,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndGame
       objectReference: {fileID: 0}
+    - target: {fileID: 3880964481580480552, guid: 6d4ef7d70c0a408448939e2377fe8708, type: 3}
+      propertyPath: _uiText
+      value: 
+      objectReference: {fileID: 328279312}
     - target: {fileID: 7247037966881395776, guid: 6d4ef7d70c0a408448939e2377fe8708, type: 3}
       propertyPath: m_RootOrder
       value: 10
