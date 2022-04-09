@@ -234,6 +234,9 @@ public class Player : MonoBehaviour
 =======
         if (_totalScore >= _winScore)
             GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner(GetComponent<PlayerColor>().PlayerId, _playerColors._colors[_colorId]);
+<<<<<<< HEAD
+>>>>>>> 07d64f15e1f6336b803e7740e0c9296680826328
+=======
 >>>>>>> 07d64f15e1f6336b803e7740e0c9296680826328
     }
 
