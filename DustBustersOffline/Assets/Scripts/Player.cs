@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerColors _playerColors = null;
     [SerializeField] private List<SpriteRenderer> _bodySprites = new List<SpriteRenderer>();
     [SerializeField] private GameObject _uiElement = null;
-    [SerializeField] private int _winScore = 40;
+    [SerializeField] private int _winScore = 2;
 
     //private TextMeshProUGUI _totalScoreText = null;
     //private TextMeshProUGUI _currentScoreText = null;
@@ -228,8 +228,13 @@ public class Player : MonoBehaviour
 
         _characterController.enabled = true;
 
+<<<<<<< HEAD
         //if (_totalScore >= _winScore)
             //GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner();
+=======
+        if (_totalScore >= _winScore)
+            GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner(GetComponent<PlayerColor>().PlayerId, _playerColors._colors[_colorId]);
+>>>>>>> 07d64f15e1f6336b803e7740e0c9296680826328
     }
 
     public void Charge() 
