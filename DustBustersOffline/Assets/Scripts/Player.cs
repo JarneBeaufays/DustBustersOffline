@@ -228,8 +228,8 @@ public class Player : MonoBehaviour
 
         _characterController.enabled = true;
 
-        if (_totalScore >= _winScore)
-            GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner();
+        //if (_totalScore >= _winScore)
+            //GameObject.FindObjectOfType<EndGame>().WinnerWinnerChickenDinner();
     }
 
     public void Charge() 

@@ -26,8 +26,6 @@ public class Can : MonoBehaviour
             _rb.drag = 10000;
             _rb.angularDrag = 1000;
         }
-
-        Debug.DrawLine(_rb.transform.position, _rb.velocity * 10);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -11,7 +11,9 @@ public class DangerParticle : MonoBehaviour
         if (other.CompareTag("Can"))
         {
             Destroy(this.gameObject);
-            GameObject particle = Instantiate(_landingParticle, this.transform.position, Quaternion.Euler(90, 0, 0));
+            Vector3 pos = this.transform.position;
+            pos.y -= 1f;
+            GameObject particle = Instantiate(_landingParticle, pos, Quaternion.Euler(90, 0, 0));
             particle.transform.localScale *= 2;
             Destroy(particle, particle.GetComponent<ParticleSystem>().main.duration);
         }

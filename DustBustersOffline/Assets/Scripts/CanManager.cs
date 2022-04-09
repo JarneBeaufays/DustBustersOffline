@@ -69,6 +69,6 @@ public class CanManager : MonoBehaviour
             }
         }
 
-        Instantiate(_dangerParticle, _landingPos, Quaternion.Euler(90, 0, 0));
+        Instantiate(_dangerParticle, new Vector3(_landingPos.x, _landingPos.y + 1, _landingPos.z), Quaternion.Euler(90, 0, 0));
     }
 }
